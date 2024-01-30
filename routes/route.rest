@@ -1,0 +1,38 @@
+GET http://0.0.0.0:3000/room_sensor
+
+###
+
+GET http://0.0.0.0:3000/room_sensor/65b4bc876ea9c01f116d0b07
+
+###
+
+POST http://0.0.0.0:3000/room_sensor
+Content-Type: application/json
+
+{
+    "temp": 32.7,
+    "humidity": 69.69,
+    "co2": 420,
+    "pm1": 8,
+    "pm2_5": 8,
+    "pm10": 420
+}
+
+###
+
+DELETE http://0.0.0.0:3000/room_sensor/
+
+###
+
+PATCH http://0.0.0.0:3000/room_sensor/65b4bc876ea9c01f116d0b07
+Content-Type: application/json
+
+{
+    "temp": 42.69
+}
+
+###
+POST http://192.168.1.13/led
+Content-Type: application/x-www-form-urlencoded
+
+state=on
