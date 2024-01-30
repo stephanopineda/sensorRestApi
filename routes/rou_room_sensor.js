@@ -77,7 +77,7 @@ router.delete('/:id', getReadings, async (req, res) => {
 // Delete all documents in room_sensor collection
 router.delete('/', async (req, res) => {
     try {
-        await room_sensor_model.deleteMany(); // Delete all subscribers
+        await room_sensor_model.deleteMany(); // Delete all data
         res.json({ message: 'All documents deleted successfully.' });
     } catch (err) {
         res.status(500).json({ message: err.message });
