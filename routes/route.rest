@@ -32,7 +32,24 @@ Content-Type: application/json
 }
 
 ###
-POST http://192.168.1.13/led
+POST http://192.168.1.10/led
 Content-Type: application/x-www-form-urlencoded
 
-state=on
+state=off
+
+
+
+### For temporary MLX recording
+
+POST http://0.0.0.0:3000/recordMLX
+Content-Type: application/json
+
+{
+    "bodytemp": 36.69
+}
+
+###
+GET http://0.0.0.0:3000/recordMLX
+
+###
+DELETE http://0.0.0.0:3000/recordMLX

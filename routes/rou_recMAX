@@ -1,0 +1,40 @@
+const express = require('express')
+const router = express.Router()
+const max_sensor_model = require('../models/mod_maxtemp')
+
+// Return all document from room_sensor collection
+router.get('/', async (req, res) => {
+    try{
+        const readings = await max_sensor_model.find()
+        res.json(readings)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+});
+
+
+// Insert one document to room_sensor collection
+router.post('/', async (req, res) => {
+    const readings = new max_sensor_model({
+        heartrate: req.body.heartrate,
+        spo2: req.body.spo2
+    })
+    try {
+        const newReadings = await readings.save()
+        res.status(201).json(newReadings)
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+});
+
+// Delete all documents in room_sensor collection
+router.delete('/', async (req, res) => {
+    try {
+        await max_sensor_model.deleteMany(); // Delete all data
+        res.json({ message: 'All documents deleted successfully.' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = router

@@ -1,0 +1,39 @@
+const express = require('express')
+const router = express.Router()
+const mlx_sensor_model = require('../models/mod_mlxtemp')
+
+// Return all document from room_sensor collection
+router.get('/', async (req, res) => {
+    try{
+        const readings = await mlx_sensor_model.find()
+        res.json(readings)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+});
+
+
+// Insert one document to room_sensor collection
+router.post('/', async (req, res) => {
+    const readings = new mlx_sensor_model({
+        bodytemp: req.body.bodytemp
+    })
+    try {
+        const newReadings = await readings.save()
+        res.status(201).json(newReadings)
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+});
+
+// Delete all documents in room_sensor collection
+router.delete('/', async (req, res) => {
+    try {
+        await mlx_sensor_model.deleteMany(); // Delete all data
+        res.json({ message: 'All documents deleted successfully.' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = router
